@@ -15,6 +15,10 @@ def main():
     if not os.environ.get("DATABASE_URL"):
         print("build.py: DATABASE_URL is not set, skipping database setup.")
         return
+    # Run migrations over the direct (unpooled) connection when Neon provides one;
+    # schema changes are more reliable without the pooler in between.
+    if os.environ.get("DATABASE_URL_UNPOOLED"):
+        os.environ["DATABASE_URL"] = os.environ["DATABASE_URL_UNPOOLED"]
     django.setup()
     call_command("migrate", interactive=False)
     call_command("createcachetable")

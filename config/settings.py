@@ -79,6 +79,9 @@ if os.environ.get("DATABASE_URL"):
             ssl_require=True,
         )
     }
+    # Neon's DATABASE_URL goes through PgBouncer (transaction pooling),
+    # which doesn't support the server-side cursors Django uses by default.
+    DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
 else:
     DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}}
 
