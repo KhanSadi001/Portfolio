@@ -1,0 +1,19 @@
+[project]
+name = "sadi-portfolio"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+    "Django==6.1.2",
+    "whitenoise==6.12.0",
+    "psycopg[binary]==3.3.6",
+    "dj-database-url==3.1.2",
+    "nh3==0.3.7",
+    "Markdown==3.11.2",
+]
+
+[tool.vercel]
+entrypoint = "config.wsgi:application"
+
+[tool.vercel.scripts]
+# Runs on every deploy: applies database migrations and creates the admin user.
+build = "python build.py"

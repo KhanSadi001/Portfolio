@@ -1,0 +1,1 @@
+<button class="like-btn{% if post.liked %} is-liked{% endif %}" type="button" data-like-url="{% url 'api_like' post.slug %}" aria-pressed="{{ post.liked|yesno:'true,false' }}" aria-label="Like this post"><span class="heart" aria-hidden="true">{% if post.liked %}♥{% else %}♡{% endif %}</span><span class="like-count">{{ post.like_count }}</span></button>

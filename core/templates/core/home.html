@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="portrait reveal" role="img" aria-label="Photo of Sadi Khan"></div>
+    <div>
+      <p class="hero-hello reveal reveal-2">Hi, I'm</p>
+      <h1 class="reveal reveal-2">Sadi<br>Khan</h1>
+      <p class="hero-tagline reveal reveal-3">Code the future, debug the present. I'm a computer science student working on <strong>AI, data science and systems programming</strong>.</p>
+      <div class="hero-actions reveal reveal-4">
+        <a class="btn btn-primary" href="{% url 'projects' %}">See my projects</a>
+        <a class="btn" href="{% url 'play' %}"><i class="fas fa-gamepad" aria-hidden="true"></i> Play Bit Flip</a>
+        <div class="hero-social">{% include "core/partials/social.html" %}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if featured %}
+<section class="section section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <a class="text-link" href="{% url 'projects' %}">All projects</a>
+    </div>
+    <div class="featured">
+      {% for p in featured %}
+      <a class="feature" href="{% url 'go' p.slug %}" target="_blank" rel="noopener">
+        <span class="tag">{{ p.tag }}, {{ p.year }}</span>
+        <h3>{{ p.title }}</h3>
+        {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+        <span class="go">{% if p.is_github %}View on GitHub{% else %}Open project{% endif %}{% include "core/partials/gh.html" %}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section section-tight">
+  <div class="wrap">
+    <div class="panel contact">
+      <div>
+        <h2>Have a project or an opportunity in mind?</h2>
+        <p>I'm open to collaborations, research and internships.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="{% url 'contact' %}"><i class="far fa-envelope" aria-hidden="true"></i> Send me a message</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

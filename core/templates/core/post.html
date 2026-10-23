@@ -1,0 +1,23 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}{{ post }} | Sadi Khan{% endblock %}
+{% block og_title %}{{ post }}{% endblock %}
+{% block content %}
+<section class="page-intro">
+  <div class="wrap narrow">
+    <p><a class="text-link" href="{% url 'blog' %}">All posts</a></p>
+    <h1 class="reveal post-h1">{{ post }}</h1>
+    <p class="reveal reveal-2"><time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"j F Y" }}</time></p>
+  </div>
+</section>
+<section class="section section-tight">
+  <div class="wrap narrow">
+    {% csrf_token %}
+    <article class="panel post prose post-full reveal reveal-3">
+      {{ post.body_html }}
+      <div class="post-foot">{% include "core/partials/like.html" %}</div>
+    </article>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'core/js/site.js' %}"></script>{% endblock %}

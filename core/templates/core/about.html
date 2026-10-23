@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% block title %}Sadi Khan | About{% endblock %}
+{% block content %}
+<section class="page-intro">
+  <div class="wrap">
+    <h1 class="reveal">About me</h1>
+    <p class="reveal reveal-2">Computer science student, founder of ANT-I, and someone who likes knowing how things work all the way down to the registers.</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="wrap">
+    <div class="panel about-grid reveal reveal-3">
+      <div class="prose">
+        <p>I'm a Computer Science student with strong interests in Artificial Intelligence, Data Science and Software Development. Over the past few years I've built projects ranging from university management systems in Java to AI-driven asteroid threat prediction and exoplanet detection models. I also enjoy Operating Systems concepts, Assembly programming, and Python-based simulations like CPU schedulers, bootloader simulators and process aging.</p>
+        <p>As the founder of <strong>ANT-I (Innovative Tech Team)</strong>, I focus on building creative solutions to real-world problems. Right now I'm sharpening my Data Science and Machine Learning skills while expanding into AI applications and full-stack development.</p>
+        <p>I'm always open to collaborating on projects, research or opportunities that combine technology and innovation. Let's connect.</p>
+      </div>
+      <div>
+        <div class="aside-block">
+          <h2 class="aside-title">What I work on</h2>
+          <ul class="focus-list">
+            <li>Machine learning</li><li>Data science</li><li>Operating systems</li><li>Assembly (8086)</li>
+            <li>Python</li><li>Django</li><li>Java</li><li>Arduino</li><li>Web development</li>
+          </ul>
+        </div>
+        <div class="aside-block">
+          <h2 class="aside-title">Elsewhere</h2>
+          <div class="contact-actions">
+            {% include "core/partials/social.html" %}
+            <a class="icon-link" href="https://www.datacamp.com/portfolio/msaadikh" target="_blank" rel="noopener" aria-label="DataCamp portfolio"><i class="fas fa-database" aria-hidden="true"></i></a>
+            <a class="icon-link" href="{% url 'contact' %}" aria-label="Send me a message"><i class="far fa-envelope" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="wrap about-grid">
+    <div class="panel">
+      <div class="section-head"><h2>Education</h2></div>
+      <ol class="timeline">
+        <li><span class="when">2023 – 2027</span><h3>Bachelor's in Computer Science</h3><p class="where">Usman University of Technology</p></li>
+        <li><span class="when">2021 – 2023</span><h3>A Levels</h3><p class="where">Whales College</p></li>
+        <li><span class="when">2019 – 2022</span><h3>Diploma in Software Engineering</h3><p class="where">Aptech Learning</p><span class="medal"><i class="fas fa-medal" aria-hidden="true"></i> Gold medalist</span></li>
+        <li><span class="when">2019 – 2021</span><h3>O Levels</h3><p class="where">Practical Schooling System</p></li>
+        <li><span class="when">2015 – 2018</span><h3>Hafiz-e-Quran</h3><p class="where">Jamia-tul-Huda</p></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <div class="section-head"><h2>Certifications</h2></div>
+      <ul class="ledger">
+        <li><span class="issuer">DataCamp</span><span class="year">2025</span><span class="count">24<small>certificates</small></span></li>
+        <li><span class="issuer">Google</span><span class="year">2024</span><span class="count">1<small>certificate</small></span></li>
+        <li><span class="issuer">HackerRank</span><span class="year">2024</span><span class="count">1<small>certificate</small></span></li>
+        <li><span class="issuer">Cisco</span><span class="year">2023</span><span class="count">1<small>certificate</small></span></li>
+        <li><span class="issuer">BVS Olympiad</span><span class="year">2023</span><span class="count"><i class="fas fa-trophy" aria-hidden="true"></i><small>Runner-up</small></span></li>
+        <li><span class="issuer">DigiSkills</span><span class="year">2020</span><span class="count">2<small>certificates</small></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="wrap">
+    <div class="panel security-note">
+      <h2>How this site is built</h2>
+      <p>A Django app on Vercel with a Postgres database. It sends a strict Content Security Policy and HSTS, loads no third-party scripts, rate-limits every form and API, stores hashed visitor IDs instead of IP addresses, and checks game scores on the server.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

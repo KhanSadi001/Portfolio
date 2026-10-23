@@ -1,0 +1,56 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Sadi Khan | Portfolio{% endblock %}</title>
+  <meta name="description" content="{% block description %}Sadi Khan — computer science student building projects in AI, data science, systems programming and hardware.{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}Sadi Khan | Portfolio{% endblock %}">
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'core/img/my_pic.jpg' %}">
+  <link rel="icon" type="image/jpeg" href="{% static 'core/img/my_pic.jpg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'core/vendor/fontawesome/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- particles.js container -->
+  <div id="particles-js"></div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">Sadi Khan</span></a>
+      <nav class="nav" aria-label="Main">
+        <a class="nav-home" href="{% url 'home' %}"{% if nav == 'home' %} aria-current="page"{% endif %}>Home</a>
+        <a href="{% url 'about' %}"{% if nav == 'about' %} aria-current="page"{% endif %}>About</a>
+        <a href="{% url 'projects' %}"{% if nav == 'projects' %} aria-current="page"{% endif %}>Projects</a>
+        <a href="{% url 'blog' %}"{% if nav == 'blog' %} aria-current="page"{% endif %}>Blog</a>
+        <a href="{% url 'play' %}"{% if nav == 'play' %} aria-current="page"{% endif %}>Play</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© {% now "Y" %} Sadi Khan</span>
+      <span class="footer-links">
+        <a href="https://github.com/KhanSadi001" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/sadi-khan-55b31a243/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="{% url 'contact' %}">Contact</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- particles.js (unchanged) -->
+  <script src="{% static 'core/js/particles.js' %}"></script>
+  <script src="{% static 'core/js/app.js' %}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

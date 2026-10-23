@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% block title %}Sadi Khan | Contact{% endblock %}
+{% block content %}
+<section class="page-intro">
+  <div class="wrap narrow">
+    <h1 class="reveal">Contact</h1>
+    <p class="reveal reveal-2">Send me a message about a project, research or an internship. I'll reply to the email you give.</p>
+  </div>
+</section>
+<section class="section section-tight">
+  <div class="wrap narrow">
+    <div class="panel reveal reveal-3">
+      {% if messages %}
+        {% for m in messages %}<div class="notice notice-ok" role="status"><i class="fas fa-check" aria-hidden="true"></i> {{ m }}</div>{% endfor %}
+      {% endif %}
+      <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}<div class="notice notice-error" role="alert">{{ form.non_field_errors|join:" " }}</div>{% endif %}
+        {% for field in form.visible_fields %}
+          {% if field.name == "website" %}
+            <div class="trap" aria-hidden="true"><label for="{{ field.id_for_label }}">Leave this empty</label>{{ field }}</div>
+          {% else %}
+            <div class="field{% if field.errors %} has-error{% endif %}">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.errors %}<p class="field-error">{{ field.errors|join:" " }}</p>{% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+        {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+        <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send message</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

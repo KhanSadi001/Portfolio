@@ -1,0 +1,76 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Bit Flip | Sadi Khan{% endblock %}
+{% block description %}Bit Flip: a 60-second binary game. Flip bits to build the target number before time runs out.{% endblock %}
+{% block content %}
+<section class="page-intro">
+  <div class="wrap">
+    <h1 class="reveal">Bit Flip</h1>
+    <p class="reveal reveal-2">Every number a computer stores is a row of bits. Flip them to build the target before the clock hits zero.</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="wrap game-layout">
+    {% csrf_token %}
+    {{ levels|json_script:"game-levels" }}
+    <div class="panel game reveal reveal-3" id="game" data-seconds="{{ round_seconds }}"
+         data-start-url="{% url 'api_game_start' %}" data-submit-url="{% url 'api_game_submit' %}"
+         data-board-url="{% url 'api_leaderboard' %}">
+
+      <div class="game-hud" aria-live="off">
+        <div><span class="hud-label">Time</span><span class="hud-value" id="hud-time">{{ round_seconds }}</span></div>
+        <div><span class="hud-label">Score</span><span class="hud-value" id="hud-score">0</span></div>
+        <div><span class="hud-label">Level</span><span class="hud-value" id="hud-level">4-bit</span></div>
+      </div>
+
+      <div class="target-wrap">
+        <p class="target-label" id="target-label">Make this number</p>
+        <p class="target" id="target" aria-live="polite">–</p>
+        <p class="current">Your bits = <strong id="current">0</strong></p>
+      </div>
+
+      <div class="bits" id="bits" role="group" aria-label="Bits, most significant first">
+        {% for place in "76543210" %}
+        <button type="button" class="bit" data-index="{{ forloop.counter0 }}" aria-pressed="false" disabled>
+          <span class="bit-value">0</span>
+          <span class="bit-place"></span>
+        </button>
+        {% endfor %}
+      </div>
+      <p class="keys-hint">Keyboard: keys 1–8 flip the bits from left to right.</p>
+
+      <div class="game-screen" id="screen-start">
+        <h2>Ready?</h2>
+        <p>You have 60 seconds. The first five numbers use 4 bits, then all 8, then the target switches to hexadecimal. Later levels score more.</p>
+        <button class="btn btn-primary" type="button" id="btn-start"><i class="fas fa-play" aria-hidden="true"></i> Start round</button>
+      </div>
+
+      <div class="game-screen" id="screen-end" hidden>
+        <h2>Time's up</h2>
+        <p class="end-score"><span id="end-score">0</span> points, <span id="end-solved">0</span> numbers built</p>
+        <form id="save-form" class="save-form">
+          <label for="player-name">Name for the leaderboard</label>
+          <div class="save-row">
+            <input id="player-name" name="name" maxlength="20" autocomplete="nickname" required pattern="[A-Za-z0-9 _.\-]{1,20}">
+            <button class="btn btn-primary" type="submit">Save score</button>
+          </div>
+          <p class="form-status" id="save-status" role="status"></p>
+        </form>
+        <button class="btn" type="button" id="btn-again"><i class="fas fa-redo" aria-hidden="true"></i> Play again</button>
+      </div>
+    </div>
+
+    <aside class="panel leaderboard reveal reveal-4" aria-labelledby="lb-title">
+      <h2 id="lb-title">Leaderboard</h2>
+      <ol class="lb-list" id="lb-list"><li class="lb-empty">Loading scores…</li></ol>
+      <details class="how">
+        <summary>How binary works</summary>
+        <p>Each bit is worth double the one to its right: 1, 2, 4, 8, 16, 32, 64, 128. Turn on the bits whose values add up to the target. 42 is 32 + 8 + 2, so it's <code>00101010</code>.</p>
+        <p>Hex packs 4 bits into one digit (0–9, then A–F). <code>0x2A</code> is 2 × 16 + 10 = 42.</p>
+      </details>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'core/js/game.js' %}"></script>{% endblock %}

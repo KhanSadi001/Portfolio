@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Sadi Khan | Projects{% endblock %}
+{% block content %}
+<section class="page-intro">
+  <div class="wrap">
+    <h1 class="reveal">Projects</h1>
+    <p class="reveal reveal-2">Things I've built, from Arduino hardware to machine-learning models. Language and stars come live from GitHub.</p>
+  </div>
+</section>
+
+<section class="section section-tight">
+  <div class="wrap">
+    <div class="panel reveal reveal-3">
+      {% if projects %}
+      <div class="filters" role="group" aria-label="Filter projects">
+        {% for value, label, n in filters %}
+        <button class="filter" type="button" data-filter="{{ value }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ label }}<span class="n">{{ n }}</span></button>
+        {% endfor %}
+      </div>
+      <ul class="project-list">
+        {% for p in projects %}
+        <li class="project" data-cat="{{ p.category }}">
+          <span class="year">{{ p.year }}</span>
+          <div>
+            <h3>{{ p.title }}</h3>
+            <div class="meta"><span class="tag">{{ p.tag }}</span>{% if p.where %}<span>{{ p.where }}</span>{% endif %}{% include "core/partials/gh.html" %}</div>
+          </div>
+          <a class="btn" href="{% url 'go' p.slug %}" target="_blank" rel="noopener">{% if p.is_github %}<i class="fab fa-github" aria-hidden="true"></i> View code{% else %}<i class="fas fa-external-link-alt" aria-hidden="true"></i> Open{% endif %}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No projects yet. Add them in the admin panel.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'core/js/site.js' %}"></script>{% endblock %}
