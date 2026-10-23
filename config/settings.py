@@ -112,11 +112,10 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"
-        if DEBUG
-        else "core.storage.ForgivingManifestStorage"
-    },
+    # Plain storage: Vercel serves the collected files from its CDN, but they aren't
+    # bundled into the Django function, so a hashing/manifest storage can't find them
+    # at runtime. Vercel gives each deployment fresh static URLs, so no hashing is needed.
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
